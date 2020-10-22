@@ -52,7 +52,11 @@ public class BuildingButton : MonoBehaviour {
 			building.GetComponent<Button>().interactable = true;
 
 			if(building.name == "Farm") building.GetComponent<Farm>().enabled = true;
+			if(building.name == "Blacksmith") building.GetComponent<Blacksmith>().enabled = true;
 			if(building.name == "Mine") building.GetComponent<Mine>().enabled = true;
+			if(building.name == "Well") building.GetComponent<Well>().enabled = true;
+			if(building.name == "Woodcutter Hut") building.GetComponent<Woodcutter>().enabled = true;
+			if(building.name == "Herbalist Hut") building.GetComponent<Herbalist>().enabled = true;
 			//if(building.name == "Alchemist") building.GetComponent<Alchemist>().enabled = true;
 		} 
 	}

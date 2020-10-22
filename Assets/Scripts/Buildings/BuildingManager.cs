@@ -11,6 +11,12 @@ public class BuildingManager : Singleton<BuildingManager>
 	public Building selectedBuilding;
 
 	[SerializeField]
+	private Text buildingName;
+
+	[SerializeField]
+	private Image buildingIcon;
+
+	[SerializeField]
 	private Text levelText;
 
 	[SerializeField]
@@ -22,10 +28,6 @@ public class BuildingManager : Singleton<BuildingManager>
   [SerializeField]
 	private Text workersCost;
 
-	// [SerializeField]
-	// private Button buildButton;
-
-
 	void Start()
 	{
 		//buildButton.onClick.AddListener(openBuildPanel);
@@ -36,8 +38,6 @@ public class BuildingManager : Singleton<BuildingManager>
 	{
 		GameObject.Find("BuildingPanel").transform.localScale = new Vector3(0, 0, 0);
 	}
-
-
 
   public void SelectBuilding(Building building)
 	{
@@ -87,21 +87,27 @@ public class BuildingManager : Singleton<BuildingManager>
 		}
 	}
 	
-    // Updates the content on the building panle to reflect the currerntly selected building
+    // Updates the content on the building panel to reflect the currerntly selected building
     public void UpdateBuildingPanel()
 	{
 		if(selectedBuilding != null)
 		{
-			SetPanelText(selectedBuilding.GetStats(), selectedBuilding.GetWorkers(), selectedBuilding.GetWorkersCost());
+			//SetPanelText(selectedBuilding.GetStats(), selectedBuilding.GetWorkers(), selectedBuilding.GetWorkersCost());
+			buildingName.text = selectedBuilding.name;
+			buildingIcon.sprite = selectedBuilding.GetBuildingIcon();
+			statsText.text = selectedBuilding.GetStats();
+			workersText.text = selectedBuilding.GetWorkers();
+			this.workersCost.text = selectedBuilding.GetWorkersCost();;
+
 		}
 	}
 
     // Sets the content for the building panel
-    public void SetPanelText(string stats, string currentWorkers, string workersCost)
-	{
-		statsText.text = stats;
-		workersText.text = currentWorkers;
-    this.workersCost.text = workersCost;
-	}
+  // public void SetPanelText(string stats, string currentWorkers, string workersCost)
+	// {
+	// 	statsText.text = stats;
+	// 	workersText.text = currentWorkers;
+  //   this.workersCost.text = workersCost;
+	// }
 
 }

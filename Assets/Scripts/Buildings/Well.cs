@@ -2,17 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Well : MonoBehaviour
+public class Well : Building
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+  void Start()
+	{
+		populateItems();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    Upgrades = new BuildingUpgrade[0];
+
+	}
 }

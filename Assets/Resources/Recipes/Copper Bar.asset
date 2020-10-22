@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 043da52f326984d4cbf0a46c424967ce, type: 3}
-  m_Name: Iron Axe
+  m_Name: Copper Bar
   m_EditorClassIdentifier: 
-  input01: {fileID: 11400000, guid: 9a99ce279b3775b49a772a2cd35b9da5, type: 2}
-  input02: {fileID: 11400000, guid: aa95f7a2ee952a144b08323f14f7e0dd, type: 2}
+  input01: {fileID: 11400000, guid: 9c505e009ae9e2944a97d25cef55d230, type: 2}
+  input02: {fileID: 11400000, guid: d254eff22ecbcf2429eaf4c73bf16f64, type: 2}
   input03: {fileID: 0}
-  result: {fileID: 11400000, guid: 94260898199520c4391ca709deb953af, type: 2}
+  result: {fileID: 11400000, guid: 31fa93f32554ea24d94334db3d36df0d, type: 2}

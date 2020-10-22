@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public abstract class Building : MonoBehaviour {
-
 	[SerializeField]
 	private int generatedGold;
 
@@ -17,18 +16,16 @@ public abstract class Building : MonoBehaviour {
 	[SerializeField]
 	private int workerCost;
 
+	[SerializeField]
+	private Image buildingIcon;
+
 	public bool didUpgrade = false;
-
-	public void MineralProduction()
-	{
-		
-	}
-
 	public int Level { get; private set; }
 	public int CurrentWorkers { get; private set; }
-
-	//private FarmBuilding farmBuilding;
 	public BuildingUpgrade[] Upgrades { get; protected set; }
+
+	private CraftingList craftingList;
+	private Item[] items;
 
 	public BuildingUpgrade NextUpgrade
 	{
@@ -45,6 +42,8 @@ public abstract class Building : MonoBehaviour {
 
 	private void Awake()
 	{
+		craftingList = FindObjectOfType<CraftingList>();
+		items = Resources.LoadAll<Item>("Items");
 		// Event listener for clicking on the building icon, sets the selected building
 		// to the current instance
 		GetComponent<Button>().onClick.AddListener(onViewBuilding);
@@ -62,6 +61,12 @@ public abstract class Building : MonoBehaviour {
 	{
 		
 	}
+
+	public virtual Sprite GetBuildingIcon()
+	{
+		return buildingIcon.sprite;
+	}
+
 	
 	public virtual string GetStats()
 	{
@@ -118,5 +123,18 @@ public abstract class Building : MonoBehaviour {
 	public virtual void ProduceItem(Item item)
 	{
 		item.count++;
+	}
+
+	public virtual void populateItems()
+	{
+		foreach (Item item in items)
+		{
+			if(item.producer == this.name && item.tier == Level && item.initial)
+			{
+				Storage.Instance.AddItem(item);
+				Production.Instance.AddItem(item);
+			}
+		}
+		craftingList.RefreshDisplay();
 	}
 }

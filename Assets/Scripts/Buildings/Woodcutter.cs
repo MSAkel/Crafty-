@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Herbalist : Building
+public class Woodcutter : Building
 {
-  void Start()
+void Start()
 	{
 		populateItems();
 	

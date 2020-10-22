@@ -2,17 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Blacksmith : MonoBehaviour
+public class Blacksmith : Building
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+   void Start()
+	{
+		populateItems();
+	
+		Upgrades = new BuildingUpgrade[]
+		{
+			new BuildingUpgrade(2000, 5, 100, 7200, 0.5f),
+			new BuildingUpgrade(5000, 8, 400, 14400, 1f),
+		};
+	}
+	
+	void Update () 
+	{
+		if (didUpgrade)
+		{
+			populateItems();
+			didUpgrade = false;
+		}
+	}
 }

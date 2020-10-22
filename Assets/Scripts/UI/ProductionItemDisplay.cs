@@ -17,6 +17,9 @@ public class ProductionItemDisplay : MonoBehaviour {
 	[SerializeField]
 	private Slider slider;
 
+  // [SerializeField]
+  // private RectTransform panelRectTransform;
+
 
  	public void Setup(Item item)
   {
@@ -33,13 +36,24 @@ public class ProductionItemDisplay : MonoBehaviour {
   }
 
 	void Update () {
+    if(BuildingManager.Instance.selectedBuilding)
+    {
+      if(item.producer == BuildingManager.Instance.selectedBuilding.name)
+      {
+        this.transform.localScale = new Vector3(1, 1, 1);
+      } else {
+        this.transform.localScale = new Vector3(0, 0, 0);
+      }
+    }
 		generateItem();
 	}
 
 		private void generateItem()
 	{
+
     timer += Time.deltaTime;
 		progressText.text = string.Format("{0} sec", Mathf.Round((item.productionTime - timer )* 10f) / 10f);
+
 
     if(timer >= item.productionTime && item.count < Storage.Instance.maxStorageCount)
     {

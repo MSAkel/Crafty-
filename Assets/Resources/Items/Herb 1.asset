@@ -16,6 +16,7 @@ MonoBehaviour:
   producer: Herbalist Hut
   tier: 1
   count: 0
+  value: 3
   productionTime: 4
   icon: {fileID: -5428206428529569624, guid: 18e9848c238343641847999228550e26, type: 3}
   initial: 1

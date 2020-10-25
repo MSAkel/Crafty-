@@ -4,11 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public abstract class Building : MonoBehaviour {
-	[SerializeField]
-	private int generatedGold;
+	// [SerializeField]
+	// private int generatedGold;
 
-	[SerializeField]
-	private float productionRate;
+	//[SerializeField]
+	//private float productionRate;
 
 	[SerializeField]
 	private int maxWorkers;
@@ -44,8 +44,7 @@ public abstract class Building : MonoBehaviour {
 	{
 		craftingList = FindObjectOfType<CraftingList>();
 		items = Resources.LoadAll<Item>("Items");
-		// Event listener for clicking on the building icon, sets the selected building
-		// to the current instance
+		// Event listener for clicking on the building icon, sets the selected building to the current instance
 		GetComponent<Button>().onClick.AddListener(onViewBuilding);
 		Level = 1;
 	}
@@ -62,6 +61,7 @@ public abstract class Building : MonoBehaviour {
 		
 	}
 
+	// Sets the building icon in the building description panel
 	public virtual Sprite GetBuildingIcon()
 	{
 		return buildingIcon.sprite;
@@ -72,9 +72,9 @@ public abstract class Building : MonoBehaviour {
 	{
 		if(NextUpgrade != null)
 		{
-			return string.Format("\nLevel: {0} \nGold/s: {1} <color=#00ff00ff> +{3}</color>\nMaximum Workers: {2} <color=#00ff00ff>+{4}</color>", Level, generatedGold, maxWorkers, NextUpgrade.GoldRate, NextUpgrade.MaxWorkers);
+			return string.Format("\nLevel: {0} \nMaximum Workers: {1} <color=#00ff00ff>+{2}</color>", Level, maxWorkers, NextUpgrade.maxWorkers);
 		}
-		return string.Format("Level: {0} \nGold/s: {1} \nMaximum Workers: {2}", Level, generatedGold, maxWorkers);
+		return string.Format("Level: {0} \nMaximum Workers: {1}", Level, maxWorkers);
 	}
 
 	public virtual string GetWorkers()
@@ -99,10 +99,10 @@ public abstract class Building : MonoBehaviour {
 		}
 	}
 
-	public void GenerateGold()
-	{
-		GameManager.Instance.Currency += (generatedGold * CurrentWorkers);
-	}
+	//public void GenerateGold()
+	//{
+	//	GameManager.Instance.Currency += (generatedGold * CurrentWorkers);
+	//}
 
 	public void Select()
 	{
@@ -111,19 +111,19 @@ public abstract class Building : MonoBehaviour {
 
 	public virtual void Upgrade()
 	{
-		GameManager.Instance.Currency -= NextUpgrade.Price;
-		this.generatedGold = NextUpgrade.GoldRate;
-		this.maxWorkers = NextUpgrade.MaxWorkers;
-		this.productionRate = NextUpgrade.ProductionRate;
+		GameManager.Instance.Currency -= NextUpgrade.cost;
+		//this.generatedGold = NextUpgrade.GoldRate;
+		this.maxWorkers = NextUpgrade.maxWorkers;
+		//this.productionRate = NextUpgrade.ProductionRate;
 		Level++;
 		BuildingManager.Instance.UpdateBuildingPanel();
 		didUpgrade = true;
 	}
 
-	public virtual void ProduceItem(Item item)
-	{
-		item.count++;
-	}
+	//public virtual void ProduceItem(Item item)
+	//{
+	//	item.count++;
+	//}
 
 	public virtual void populateItems()
 	{
@@ -132,7 +132,7 @@ public abstract class Building : MonoBehaviour {
 			if(item.producer == this.name && item.tier == Level && item.initial)
 			{
 				Storage.Instance.AddItem(item);
-				Production.Instance.AddItem(item);
+				// Production.Instance.AddItem(item);
 			}
 		}
 		craftingList.RefreshDisplay();

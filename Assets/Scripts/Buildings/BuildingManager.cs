@@ -28,15 +28,25 @@ public class BuildingManager : Singleton<BuildingManager>
   [SerializeField]
 	private Text workersCost;
 
-	void Start()
-	{
-		//buildButton.onClick.AddListener(openBuildPanel);
-		GameObject.Find("BuildingPanel").transform.localScale = new Vector3(0, 0, 0);
-	}
-
 	public void closeBuildPanel()
 	{
-		GameObject.Find("BuildingPanel").transform.localScale = new Vector3(0, 0, 0);
+		GameObject.Find("BuildingPanel").GetComponent<CanvasGroup>().alpha = 0;
+		GameObject.Find("BuildingPanel").GetComponent<CanvasGroup>().blocksRaycasts = false;
+
+		GameObject.Find("DetailsPanel").GetComponent<CanvasGroup>().alpha = 0;
+		GameObject.Find("ProductionPanel").GetComponent<CanvasGroup>().alpha = 0;
+		GameObject.Find("UpgradesPanel").GetComponent<CanvasGroup>().alpha = 0;
+
+		GameObject.Find("DetailsPanel").GetComponent<CanvasGroup>().blocksRaycasts = false;
+		GameObject.Find("ProductionPanel").GetComponent<CanvasGroup>().blocksRaycasts = false;
+		GameObject.Find("UpgradesPanel").GetComponent<CanvasGroup>().blocksRaycasts = false;
+
+		GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("ProductionItem");
+
+		for (var i = 0; i < gameObjects.Length; i++)
+		{
+			Destroy(gameObjects[i]);
+		}
 	}
 
   public void SelectBuilding(Building building)
@@ -51,7 +61,11 @@ public class BuildingManager : Singleton<BuildingManager>
     
     selectedBuilding.Select();
 
-    buildingPanel.transform.localScale = new Vector3(1, 1, 1);
+		// buildingPanel.transform.localScale = new Vector3(1, 1, 1);
+		GameObject.Find("BuildingPanel").GetComponent<CanvasGroup>().alpha = 1;
+		GameObject.Find("BuildingPanel").GetComponent<CanvasGroup>().blocksRaycasts = true;
+		GameObject.Find("DetailsPanel").GetComponent<CanvasGroup>().alpha = 1;
+		GameObject.Find("DetailsPanel").GetComponent<CanvasGroup>().blocksRaycasts = true;
 	}
 
 	public void DeselectBuilding()
@@ -71,7 +85,7 @@ public class BuildingManager : Singleton<BuildingManager>
 	{
 		if(selectedBuilding != null)
 		{
-			if(selectedBuilding.Level <= selectedBuilding.Upgrades.Length && GameManager.Instance.Currency >= selectedBuilding.NextUpgrade.Price)
+			if(selectedBuilding.Level <= selectedBuilding.Upgrades.Length && GameManager.Instance.Currency >= selectedBuilding.NextUpgrade.cost)
 			{
 				selectedBuilding.Upgrade();
 			}
@@ -88,26 +102,40 @@ public class BuildingManager : Singleton<BuildingManager>
 	}
 	
     // Updates the content on the building panel to reflect the currerntly selected building
-    public void UpdateBuildingPanel()
+   public void UpdateBuildingPanel()
 	{
-		if(selectedBuilding != null)
+		if (selectedBuilding != null)
 		{
-			//SetPanelText(selectedBuilding.GetStats(), selectedBuilding.GetWorkers(), selectedBuilding.GetWorkersCost());
 			buildingName.text = selectedBuilding.name;
-			buildingIcon.sprite = selectedBuilding.GetBuildingIcon();
-			statsText.text = selectedBuilding.GetStats();
-			workersText.text = selectedBuilding.GetWorkers();
-			this.workersCost.text = selectedBuilding.GetWorkersCost();;
+			SetDetailsContent(selectedBuilding.GetBuildingIcon(), selectedBuilding.GetStats(), selectedBuilding.GetWorkers(), selectedBuilding.GetWorkersCost());
+			SetProductionContent();
+			//buildingIcon.sprite = selectedBuilding.GetBuildingIcon();
+			//statsText.text = selectedBuilding.GetStats();
+			//workersText.text = selectedBuilding.GetWorkers();
+			//this.workersCost.text = selectedBuilding.GetWorkersCost();
 
+	
 		}
 	}
 
-    // Sets the content for the building panel
-  // public void SetPanelText(string stats, string currentWorkers, string workersCost)
-	// {
-	// 	statsText.text = stats;
-	// 	workersText.text = currentWorkers;
-  //   this.workersCost.text = workersCost;
-	// }
+   // Sets the content for the building panel
+   public void SetDetailsContent(Sprite icon ,string stats, string currentWorkers, string workersCost)
+	 {
+			buildingIcon.sprite = icon;
+			statsText.text = stats;
+	 		workersText.text = currentWorkers;
+			this.workersCost.text = workersCost;
+	 }
+
+	public void SetProductionContent()
+  {
+		foreach(Item item in Storage.Instance.unlockedItems)
+    {
+			if(item.producer == selectedBuilding.name)
+      {
+				Production.Instance.AddItem(item);
+      }
+    }
+  }
 
 }

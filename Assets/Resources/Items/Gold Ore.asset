@@ -16,6 +16,7 @@ MonoBehaviour:
   producer: Mine
   tier: 3
   count: 0
+  value: 15
   productionTime: 20
   icon: {fileID: 21300008, guid: f02f06354e5d1b8459f24777de4fbbb5, type: 3}
   initial: 1

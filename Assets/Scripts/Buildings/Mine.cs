@@ -10,8 +10,8 @@ public class Mine : Building
 	
 		Upgrades = new BuildingUpgrade[]
 		{
-			new BuildingUpgrade(5000, 5, 100, 7200, 0.5f),
-			new BuildingUpgrade(10000, 8, 400, 14400, 1f),
+			new BuildingUpgrade(5000, 5, 7200),
+			new BuildingUpgrade(10000, 8, 14400),
 		};
 	}
 	

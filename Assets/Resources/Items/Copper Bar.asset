@@ -16,6 +16,9 @@ MonoBehaviour:
   producer: Blacksmith
   tier: 1
   count: 0
+  value: 10
   productionTime: 10
   icon: {fileID: 21300012, guid: f02f06354e5d1b8459f24777de4fbbb5, type: 3}
   initial: 0
+  item01: {fileID: 11400000, guid: 9c505e009ae9e2944a97d25cef55d230, type: 2}
+  item02: {fileID: 0}

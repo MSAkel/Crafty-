@@ -9,6 +9,5 @@ public class Well : Building
 		populateItems();
 
     Upgrades = new BuildingUpgrade[0];
-
 	}
 }

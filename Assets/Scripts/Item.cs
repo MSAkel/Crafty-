@@ -8,7 +8,12 @@ public class Item : ScriptableObject {
 	public string producer;
 	public byte tier;
 	public int count;
+	public int value;
 	public float productionTime;
+	public float productionProgress;
 	public Sprite icon;
 	public bool initial;
+
+	public Item item01;
+	public Item item02;
 }

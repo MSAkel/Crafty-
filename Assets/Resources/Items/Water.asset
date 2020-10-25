@@ -16,6 +16,7 @@ MonoBehaviour:
   producer: Well
   tier: 1
   count: 0
+  value: 1
   productionTime: 6
   icon: {fileID: 5508725064705088119, guid: 18e9848c238343641847999228550e26, type: 3}
   initial: 1

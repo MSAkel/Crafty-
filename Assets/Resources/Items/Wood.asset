@@ -16,6 +16,7 @@ MonoBehaviour:
   producer: Woodcutter Hut
   tier: 1
   count: 0
+  value: 5
   productionTime: 12
   icon: {fileID: 21300014, guid: f02f06354e5d1b8459f24777de4fbbb5, type: 3}
   initial: 1

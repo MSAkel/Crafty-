@@ -15,7 +15,10 @@ MonoBehaviour:
   name: Apple
   producer: Farm
   tier: 1
-  count: 39
-  productionTime: 2.5
+  count: 2
+  value: 5
+  productionTime: 73.29
   icon: {fileID: 21300000, guid: f02f06354e5d1b8459f24777de4fbbb5, type: 3}
   initial: 1
+  item01: {fileID: 0}
+  item02: {fileID: 0}

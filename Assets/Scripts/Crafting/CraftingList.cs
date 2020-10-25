@@ -151,7 +151,7 @@ public class CraftingList : MonoBehaviour
           unlockedItemIcon.sprite = r.result.icon; 
           //storage.unlockedItem.Add(new UnlockedItem(r.result.name, 0, r.result.producer, 1, r.result.icon));
           Storage.Instance.AddItem(r.result);
-          Production.Instance.AddItem(r.result);
+          // Production.Instance.AddItem(r.result);
           RefreshDisplay();
         }
 

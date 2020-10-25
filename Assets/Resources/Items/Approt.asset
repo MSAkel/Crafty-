@@ -15,7 +15,10 @@ MonoBehaviour:
   name: Approt
   producer: Farm
   tier: 1
-  count: 4
+  count: 36
+  value: 7
   productionTime: 8
   icon: {fileID: 21300012, guid: f02f06354e5d1b8459f24777de4fbbb5, type: 3}
   initial: 0
+  item01: {fileID: 11400000, guid: bebde8edc2e2da84f9788aba9cdd3c87, type: 2}
+  item02: {fileID: 11400000, guid: 74e2a4a5604814a4abedd52139cbc930, type: 2}

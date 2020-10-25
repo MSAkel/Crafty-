@@ -16,6 +16,7 @@ MonoBehaviour:
   producer: Farm
   tier: 1
   count: 1
+  value: 5
   productionTime: 3
   icon: {fileID: 21300002, guid: f02f06354e5d1b8459f24777de4fbbb5, type: 3}
   initial: 1

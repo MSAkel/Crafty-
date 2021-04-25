@@ -16,8 +16,8 @@ public class BuildingManager : Singleton<BuildingManager>
 	[SerializeField]
 	private Image buildingIcon;
 
-	[SerializeField]
-	private Text levelText;
+	//[SerializeField]
+	//private Text levelText;
 
 	[SerializeField]
 	private Text statsText;
@@ -28,60 +28,85 @@ public class BuildingManager : Singleton<BuildingManager>
   [SerializeField]
 	private Text workersCost;
 
-	public void closeBuildPanel()
-	{
-		GameObject.Find("BuildingPanel").GetComponent<CanvasGroup>().alpha = 0;
-		GameObject.Find("BuildingPanel").GetComponent<CanvasGroup>().blocksRaycasts = false;
+	[SerializeField]
+	private Button upgradeButton;
 
-		GameObject.Find("DetailsPanel").GetComponent<CanvasGroup>().alpha = 0;
-		GameObject.Find("ProductionPanel").GetComponent<CanvasGroup>().alpha = 0;
-		GameObject.Find("UpgradesPanel").GetComponent<CanvasGroup>().alpha = 0;
+	[SerializeField]
+	private Button hireButton;
 
-		GameObject.Find("DetailsPanel").GetComponent<CanvasGroup>().blocksRaycasts = false;
-		GameObject.Find("ProductionPanel").GetComponent<CanvasGroup>().blocksRaycasts = false;
-		GameObject.Find("UpgradesPanel").GetComponent<CanvasGroup>().blocksRaycasts = false;
-
-		GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("ProductionItem");
-
-		for (var i = 0; i < gameObjects.Length; i++)
-		{
-			Destroy(gameObjects[i]);
-		}
+	private void Start()
+  {
+		upgradeButton.onClick.AddListener(UpgradeBuilding);
+		hireButton.onClick.AddListener(HireWorker);
 	}
 
-  public void SelectBuilding(Building building)
+	//public void CloseBuildPanel()
+	//{
+	//	GameObject.Find("BuildingPanel").GetComponent<CanvasGroup>().alpha = 0;
+	//	GameObject.Find("BuildingPanel").GetComponent<CanvasGroup>().blocksRaycasts = false;
+
+	//	GameObject.Find("DetailsPanel").GetComponent<CanvasGroup>().alpha = 0;
+	//	GameObject.Find("ProductionPanel").GetComponent<CanvasGroup>().alpha = 0;
+	//	GameObject.Find("UpgradesPanel").GetComponent<CanvasGroup>().alpha = 0;
+
+	//	GameObject.Find("DetailsPanel").GetComponent<CanvasGroup>().blocksRaycasts = false;
+	//	GameObject.Find("ProductionPanel").GetComponent<CanvasGroup>().blocksRaycasts = false;
+	//	GameObject.Find("UpgradesPanel").GetComponent<CanvasGroup>().blocksRaycasts = false;
+
+	//	GameObject[] prodItems = GameObject.FindGameObjectsWithTag("ProductionItem");
+
+	//	for (var i = 0; i < prodItems.Length; i++)
+	//	{
+	//		Destroy(prodItems[i]);
+	//	}
+	//}
+
+	public void SelectBuilding(Building building)
 	{
-    if (selectedBuilding != null)
-    {
-        //Select the building
-        selectedBuilding.Select();
-    }
-    //Sets the selected building
-    selectedBuilding = building;
-    
+		// Remove any existing items within the production tab
+		GameObject[] prodItems = GameObject.FindGameObjectsWithTag("ProductionItem");
+		for (var i = 0; i < prodItems.Length; i++)
+		{
+			Destroy(prodItems[i]);
+		}
+
+		// commented out as it was selecting twice
+		//if (selectedBuilding != null)
+		//{
+		//    //Select the building
+		//    selectedBuilding.Select();
+		//}
+
+		//Sets the selected building
+		selectedBuilding = building;
     selectedBuilding.Select();
 
-		// buildingPanel.transform.localScale = new Vector3(1, 1, 1);
-		GameObject.Find("BuildingPanel").GetComponent<CanvasGroup>().alpha = 1;
-		GameObject.Find("BuildingPanel").GetComponent<CanvasGroup>().blocksRaycasts = true;
-		GameObject.Find("DetailsPanel").GetComponent<CanvasGroup>().alpha = 1;
-		GameObject.Find("DetailsPanel").GetComponent<CanvasGroup>().blocksRaycasts = true;
+		buildingPanel.transform.localScale = new Vector3(1, 1, 1);
+		//GameObject.Find("BuildingPanel").GetComponent<CanvasGroup>().alpha = 1;
+		//GameObject.Find("BuildingPanel").GetComponent<CanvasGroup>().blocksRaycasts = true;
+		GameObject.Find("DetailsPanel").GetComponent<CanvasGroup>().transform.localScale = new Vector3(1, 1, 1);
+		GameObject.Find("ProductionPanel").GetComponent<CanvasGroup>().transform.localScale = new Vector3(0, 0, 0);
+		GameObject.Find("UpgradesPanel").GetComponent<CanvasGroup>().transform.localScale = new Vector3(0, 0, 0);
+
 	}
 
 	public void DeselectBuilding()
 	{
-		if (selectedBuilding != null)
-		{
-			//Select the building
-			selectedBuilding.Select();
-		}
+		// commented out as seems unnecessary
+		//if (selectedBuilding != null)
+		//{
+		//	//Select the building
+		//	selectedBuilding.Select();
+		//}
+
 		buildingPanel.transform.localScale = new Vector3(0, 0, 0);
 		//deselects selected building
 		selectedBuilding = null;
 	}
 
 
-    public void UpgradeBuilding()
+
+  public void UpgradeBuilding()
 	{
 		if(selectedBuilding != null)
 		{
@@ -113,8 +138,6 @@ public class BuildingManager : Singleton<BuildingManager>
 			//statsText.text = selectedBuilding.GetStats();
 			//workersText.text = selectedBuilding.GetWorkers();
 			//this.workersCost.text = selectedBuilding.GetWorkersCost();
-
-	
 		}
 	}
 
@@ -127,13 +150,15 @@ public class BuildingManager : Singleton<BuildingManager>
 			this.workersCost.text = workersCost;
 	 }
 
+	// Populates the items in the building production panel
 	public void SetProductionContent()
   {
 		foreach(Item item in Storage.Instance.unlockedItems)
     {
-			if(item.producer == selectedBuilding.name)
-      {
-				Production.Instance.AddItem(item);
+			if (item.producer == selectedBuilding.name) { 
+
+
+			Production.Instance.AddItem(item);
       }
     }
   }

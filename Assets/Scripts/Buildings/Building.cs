@@ -106,6 +106,7 @@ public abstract class Building : MonoBehaviour {
 
 	public void Select()
 	{
+		Debug.Log(this.name);
 		BuildingManager.Instance.UpdateBuildingPanel();
 	}
 
@@ -125,6 +126,8 @@ public abstract class Building : MonoBehaviour {
 	//	item.count++;
 	//}
 
+	// Goes through the list of the ScriptableObject items
+	// Creates an instance in storage if the item matches the building name and level
 	public virtual void populateItems()
 	{
 		foreach (Item item in items)

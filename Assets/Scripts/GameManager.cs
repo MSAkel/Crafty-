@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 //Delegate for currency change
@@ -48,123 +46,73 @@ public class GameManager : Singleton<GameManager> {
 
 	void Start ()
 	{
-		buildButton.onClick.AddListener(openBuildPanel);
-		GameObject.Find("BuildingsListPanel").GetComponent<CanvasGroup>().alpha = 0;
-		GameObject.Find("BuildingsListPanel").GetComponent<CanvasGroup>().blocksRaycasts = false;
+		//GameObject.Find("BuildingsListPanel").GetComponent<CanvasGroup>().alpha = 0;
+		//GameObject.Find("BuildingsListPanel").GetComponent<CanvasGroup>().blocksRaycasts = false;
+		storageButton.onClick.AddListener(OpenStoragePanel);
+		craftingButton.onClick.AddListener(OpenCraftingPanel);
 
-		craftingButton.onClick.AddListener(openCraftingPanel);
-		GameObject.Find("CraftingPanel").GetComponent<CanvasGroup>().alpha = 0;
-		GameObject.Find("CraftingPanel").GetComponent<CanvasGroup>().blocksRaycasts = false;
+		detailsButton.onClick.AddListener(OpenDetailsPanel);
+		productionButton.onClick.AddListener(OpenProductionPanel);
+		upgradesButton.onClick.AddListener(OpenUpgradesPanel);
+		//GameObject.Find("StoragePanel").SetActive(true);
 
-		storageButton.onClick.AddListener(openStoragePanel);
-		GameObject.Find("StoragePanel").GetComponent<CanvasGroup>().alpha = 0;
-		GameObject.Find("StoragePanel").GetComponent<CanvasGroup>().blocksRaycasts = false;
+		GameObject.Find("CraftingPanel").GetComponent<CanvasGroup>().transform.localScale = new Vector3(0, 0, 0);
+		GameObject.Find("StoragePanel").GetComponent<CanvasGroup>().transform.localScale = new Vector3(0, 0, 0);
 
-		GameObject.Find("BuildingPanel").GetComponent<CanvasGroup>().alpha = 0;
-		GameObject.Find("BuildingPanel").GetComponent<CanvasGroup>().blocksRaycasts = false;
-
-		detailsButton.onClick.AddListener(openDetailsPanel);
-		productionButton.onClick.AddListener(openProductionPanel);
-		upgradesButton.onClick.AddListener(openUpgradesPanel);
-
-		GameObject.Find("ProductionPanel").GetComponent<CanvasGroup>().alpha = 0;
-		GameObject.Find("UpgradesPanel").GetComponent<CanvasGroup>().alpha = 0;
-		GameObject.Find("ProductionPanel").GetComponent<CanvasGroup>().blocksRaycasts = false;
-		GameObject.Find("UpgradesPanel").GetComponent<CanvasGroup>().blocksRaycasts = false;
+		GameObject.Find("ProductionPanel").GetComponent<CanvasGroup>().transform.localScale = new Vector3(0, 0, 0);
+		GameObject.Find("UpgradesPanel").GetComponent<CanvasGroup>().transform.localScale = new Vector3(0, 0, 0);
+		GameObject.Find("BuildingPanel").GetComponent<CanvasGroup>().transform.localScale = new Vector3(0, 0, 0);
 
 		Currency = 75000;
 	}
 
-	public void openBuildPanel()
+	public void OpenCraftingPanel()
 	{
-		//GameObject.Find("BuildingsListPanel").transform.localScale = new Vector3(1, 1, 1);
-		GameObject.Find("BuildingsListPanel").GetComponent<CanvasGroup>().alpha = 1;
-		GameObject.Find("CraftingPanel").GetComponent<CanvasGroup>().alpha = 0;
-		GameObject.Find("StoragePanel").GetComponent<CanvasGroup>().alpha = 0;
-		GameObject.Find("BuildingPanel").GetComponent<CanvasGroup>().alpha = 0;
-
-		GameObject.Find("BuildingPanel").GetComponent<CanvasGroup>().blocksRaycasts = false;
-		GameObject.Find("BuildingsListPanel").GetComponent<CanvasGroup>().blocksRaycasts = true;
-		GameObject.Find("CraftingPanel").GetComponent<CanvasGroup>().blocksRaycasts = false;
-		GameObject.Find("StoragePanel").GetComponent<CanvasGroup>().blocksRaycasts = false;
+		//GameObject.Find("BuildingsListPanel").GetComponent<CanvasGroup>().alpha = 0;
+		GameObject.Find("CraftingPanel").GetComponent<CanvasGroup>().transform.localScale = new Vector3(1, 1, 1);
+		HideUI();
 	}
 	
-	public void closeBuildPanel()
+	public void OpenStoragePanel()
 	{
-		GameObject.Find("BuildingsListPanel").GetComponent<CanvasGroup>().alpha = 0;
-		//GameObject.Find("BuildingsListPanel").transform.localScale = new Vector3(0, 0, 0);
-	}
-
-	public void openCraftingPanel()
-	{
-		GameObject.Find("BuildingsListPanel").GetComponent<CanvasGroup>().alpha = 0;
-		GameObject.Find("CraftingPanel").GetComponent<CanvasGroup>().alpha = 1;
-		GameObject.Find("StoragePanel").GetComponent<CanvasGroup>().alpha = 0;
-		GameObject.Find("BuildingPanel").GetComponent<CanvasGroup>().alpha = 0;
-
-		GameObject.Find("BuildingPanel").GetComponent<CanvasGroup>().blocksRaycasts = false;
-		GameObject.Find("BuildingsListPanel").GetComponent<CanvasGroup>().blocksRaycasts = false;
-		GameObject.Find("CraftingPanel").GetComponent<CanvasGroup>().blocksRaycasts = true;
-		GameObject.Find("StoragePanel").GetComponent<CanvasGroup>().blocksRaycasts = false;
-	}
-	
-	public void closeCraftingPanel()
-	{
-		GameObject.Find("CraftingPanel").GetComponent<CanvasGroup>().alpha = 0;
-		//GameObject.Find("CraftingPanel").transform.localScale = new Vector3(0, 0, 0);
-	}
-
-	public void openStoragePanel()
-	{
-		GameObject.Find("BuildingsListPanel").GetComponent<CanvasGroup>().alpha = 0;
-		GameObject.Find("CraftingPanel").GetComponent<CanvasGroup>().alpha = 0;
-		GameObject.Find("StoragePanel").GetComponent<CanvasGroup>().alpha = 1;
-		GameObject.Find("BuildingPanel").GetComponent<CanvasGroup>().alpha = 0;
-
-		GameObject.Find("BuildingPanel").GetComponent<CanvasGroup>().blocksRaycasts = false;
-		GameObject.Find("BuildingsListPanel").GetComponent<CanvasGroup>().blocksRaycasts = false;
-		GameObject.Find("CraftingPanel").GetComponent<CanvasGroup>().blocksRaycasts = false;
-		GameObject.Find("StoragePanel").GetComponent<CanvasGroup>().blocksRaycasts = true;
-	}
-	
-	public void closeStoragePanel()
-	{
-		GameObject.Find("StoragePanel").GetComponent<CanvasGroup>().alpha = 0;
-	}
-
-	public void openDetailsPanel()
-	{
-		GameObject.Find("DetailsPanel").GetComponent<CanvasGroup>().alpha = 1;
-		GameObject.Find("ProductionPanel").GetComponent<CanvasGroup>().alpha = 0;
-		GameObject.Find("UpgradesPanel").GetComponent<CanvasGroup>().alpha = 0;
-
-		GameObject.Find("DetailsPanel").GetComponent<CanvasGroup>().blocksRaycasts = true;
-		GameObject.Find("ProductionPanel").GetComponent<CanvasGroup>().blocksRaycasts = false;
-		GameObject.Find("UpgradesPanel").GetComponent<CanvasGroup>().blocksRaycasts = false;
+		//GameObject.Find("BuildingsListPanel").GetComponent<CanvasGroup>().alpha = 0;
+		//GameObject.Find("CraftingPanel").GetComponent<CanvasGroup>().alpha = 0;
+		GameObject.Find("StoragePanel").GetComponent<CanvasGroup>().transform.localScale = new Vector3(1, 1, 1);
+		//GameObject.Find("BuildingPanel").GetComponent<CanvasGroup>().alpha = 0;
+		HideUI();
 
 	}
 	
-	public void openProductionPanel()
+	public void OpenDetailsPanel()
 	{
-		GameObject.Find("DetailsPanel").GetComponent<CanvasGroup>().alpha = 0;
-		GameObject.Find("ProductionPanel").GetComponent<CanvasGroup>().alpha = 1;
-		GameObject.Find("UpgradesPanel").GetComponent<CanvasGroup>().alpha = 0;
-
-		GameObject.Find("DetailsPanel").GetComponent<CanvasGroup>().blocksRaycasts = false;
-		GameObject.Find("ProductionPanel").GetComponent<CanvasGroup>().blocksRaycasts = true;
-		GameObject.Find("UpgradesPanel").GetComponent<CanvasGroup>().blocksRaycasts = false;
+		GameObject.Find("DetailsPanel").GetComponent<CanvasGroup>().transform.localScale = new Vector3(1, 1, 1);
+		GameObject.Find("ProductionPanel").GetComponent<CanvasGroup>().transform.localScale = new Vector3(0, 0, 0);
+		GameObject.Find("UpgradesPanel").GetComponent<CanvasGroup>().transform.localScale = new Vector3(0, 0, 0);
+		HideUI();
 	}
 	
-	public void openUpgradesPanel()
+	public void OpenProductionPanel()
 	{
-		GameObject.Find("DetailsPanel").GetComponent<CanvasGroup>().alpha = 0;
-		GameObject.Find("ProductionPanel").GetComponent<CanvasGroup>().alpha = 0;
-		GameObject.Find("UpgradesPanel").GetComponent<CanvasGroup>().alpha = 1;
-
-		GameObject.Find("DetailsPanel").GetComponent<CanvasGroup>().blocksRaycasts = false;
-		GameObject.Find("ProductionPanel").GetComponent<CanvasGroup>().blocksRaycasts = false;
-		GameObject.Find("UpgradesPanel").GetComponent<CanvasGroup>().blocksRaycasts = true;
+		GameObject.Find("DetailsPanel").GetComponent<CanvasGroup>().transform.localScale = new Vector3(0, 0, 0);
+		GameObject.Find("ProductionPanel").GetComponent<CanvasGroup>().transform.localScale = new Vector3(1, 1, 1);
+		GameObject.Find("UpgradesPanel").GetComponent<CanvasGroup>().transform.localScale = new Vector3(0, 0, 0);
+		HideUI();
 	}
+	
+	public void OpenUpgradesPanel()
+	{
+		GameObject.Find("DetailsPanel").GetComponent<CanvasGroup>().transform.localScale = new Vector3(0, 0, 0);
+		GameObject.Find("ProductionPanel").GetComponent<CanvasGroup>().transform.localScale = new Vector3(0, 0, 0);
+		GameObject.Find("UpgradesPanel").GetComponent<CanvasGroup>().transform.localScale = new Vector3(1, 1, 1);
+		HideUI();
+	}
+
+	private void HideUI()
+  {
+		GameObject.Find("UIButtons").GetComponent<RectTransform>().anchoredPosition = new Vector3(0, -150, 0);
+		GameObject.Find("CurrenciesBar").GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 150, 0);
+	}
+
 	
 	
 	public void OnCurrencyChanged()
